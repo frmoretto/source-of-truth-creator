@@ -1,4 +1,4 @@
-# Source of Truth Creator
+# Source of Truth Creator v1.1
 
 **Create epistemically honest Source of Truth documents that pass verification.**
 
@@ -24,9 +24,9 @@ You write a document labeled "Source of Truth" but it contains:
 
 A **practitioner-accessible** methodology and Claude skill for creating documents with **calibrated confidence** — where readers have accurate trust in each claim.
 
-> **Novelty disclosure:** The six failure modes below synthesize established frameworks (GRADE, ICD 203, PRISMA, etc.). Our contribution is accessibility and documentation-specific implementation—not inventing new epistemic concepts. See [Prior Art & Transparency](#prior-art--transparency).
+> **Novelty disclosure:** The eight failure modes below synthesize established frameworks (GRADE, ICD 203, PRISMA, etc.). Our contribution is accessibility and documentation-specific implementation—not inventing new epistemic concepts. See [Prior Art & Transparency](#prior-art--transparency).
 
-### The Six Failure Modes It Prevents
+### The Eight Failure Modes It Prevents
 
 | Failure Mode | Problem | Solution |
 |--------------|---------|----------|
@@ -36,6 +36,8 @@ A **practitioner-accessible** methodology and Claude skill for creating document
 | **Absence-as-Proof Trap** | "Not found" stated as verified | Add: "to author's knowledge, [date] search" |
 | **Illustrative-as-Data Trap** | Examples appear in data tables | Separate: Examples section vs. Verified Data |
 | **Staleness Trap** | No freshness warnings on volatile claims | Mark: `[STABLE]` / `[VOLATILE]` / `[CHECK BEFORE CITING]` |
+| **Temporal Incoherence Trap** | "Last Updated: December 2024" when it's 2025 | Verify dates against current date; check chronology |
+| **Unverified Specific Claims Trap** | "$0.005 per call" included without checking | Verify pricing/statistics before adding to Verified Data |
 
 ---
 
@@ -54,9 +56,9 @@ This methodology synthesizes established frameworks from healthcare (GRADE), int
 
 ### Option 1: claude.ai / Claude Desktop
 
-1. Download `SKILL.md` from this repo (or zip if available)
+1. Download [`source-of-truth-creator.zip`](source-of-truth-creator.zip)
 2. Go to Settings → Features → Skills → Add
-3. Upload the file
+3. Upload the zip file
 4. Ask Claude: *"Create a source of truth for [topic]"*
 
 ### Option 2: Claude Code
@@ -67,7 +69,7 @@ This methodology synthesizes established frameworks from healthcare (GRADE), int
 
 ### Option 3: Claude Projects
 
-Add `SKILL.md` to project knowledge. Claude will search it when needed, though Skills provide better integration.
+Add [`SKILL.md`](SKILL.md) to project knowledge. Claude will search it when needed, though Skills provide better integration.
 
 ### Option 4: Manual / Other LLMs
 
@@ -81,8 +83,12 @@ For other AI tools or manual use, check documents for these patterns:
 | "No X exists" / "Not found" | Hedge: "to author's knowledge, [date] search" |
 | Examples mixed in data tables | Move to separate "Examples" section |
 | URLs, pricing, feature lists | Mark: `[VOLATILE]` or `[CHECK BEFORE CITING]` |
+| "Last Updated" date wrong or >6 months old | Check against current date; update or add staleness note |
+| Version dates out of chronological order | Verify and correct chronology |
+| Specific pricing ("$X.XX per call") | Verify against current official source before including |
+| Statistics ("X% of Y", "averages Z") | Cite source or mark as estimate |
 
-**For Cursor/Windsurf:** Extract the 6 failure modes and templates into your `.cursorrules`. The methodology is tool-agnostic—only SKILL.md is Claude-optimized.
+**For Cursor/Windsurf:** Extract the 8 failure modes and templates into your `.cursorrules`. The methodology is tool-agnostic—only SKILL.md is Claude-optimized.
 
 ---
 
@@ -185,6 +191,10 @@ Before finalizing any Source of Truth document:
 | Estimates in separate section from verified data? | |
 | Volatile claims marked with staleness warnings? | |
 | "Re-verify before use" list for URLs/competitors? | |
+| Document date matches current date (or intentionally historical)? | |
+| Version/event dates in chronological order? | |
+| Specific pricing verified against current sources? | |
+| Statistics have citations or marked as estimates? | |
 
 ---
 
@@ -224,6 +234,8 @@ The goal is:
 | Prevents failures during creation | Detects failures after creation |
 | Provides templates | Provides checklists |
 | Focuses on calibration | Focuses on detection |
+
+**Alignment:** v1.1 adds Modes 7-8 to align with Clarity Gate v1.5's new Points 8-9 (Temporal Coherence, Externally Verifiable Claims).
 
 **Recommended workflow:**
 1. Use **Source of Truth Creator** to draft the document

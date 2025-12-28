@@ -3,7 +3,7 @@ name: source-of-truth
 description: Create epistemically honest Source of Truth documents that pass Clarity Gate verification. Use when consolidating research, documenting project state, creating verification baselines, or building authoritative references. Triggers on "create source of truth", "document verified state", "consolidate research", "create verification baseline", "build authoritative reference".
 ---
 
-# Source of Truth Creator v1.0
+# Source of Truth Creator v1.1
 
 **Purpose:** Create Source of Truth documents that are epistemically calibrated and Clarity Gate-ready.
 
@@ -60,7 +60,7 @@ The goal is not infinite regress verification. The goal is:
 
 ---
 
-## The Six Failure Modes
+## The Eight Failure Modes
 
 These patterns emerged from meta-verification of the Clarity Gate Source of Truth document. Modes 1-5 were discovered during that verification; Mode 6 was identified during review as a common pattern.
 
@@ -158,7 +158,75 @@ These patterns emerged from meta-verification of the Clarity Gate Source of Trut
 
 ---
 
+### 7. THE TEMPORAL INCOHERENCE TRAP
+
+**Problem:** Document dates are wrong at creation time — not stale, just incorrect.
+
+**Why it matters:** A document claiming "Last Updated: December 2024" when created in December 2025 will mislead any reader or LLM about temporal context. Unlike staleness (claims that decay), this is an error at creation.
+
+| Fails | Passes |
+|-------|--------|
+| "Last Updated: December 2024" (current date is December 2025) | "Last Updated: December 2025" |
+| v1.0.0 dated 2024-12-23, v1.1.0 dated 2024-12-20 (out of order) | Versions in chronological order |
+| "Deployed Q3 2025" written in Q1 2025 (future as fact) | "PLANNED: Q3 2025 deployment" |
+| "Current CEO is X" (when X left 2 years ago) | "As of Dec 2025, CEO is Y" |
+
+**Sub-checks:**
+1. **Document date vs current date**: Is "Last Updated" correct? In future? Suspiciously old?
+2. **Internal chronology**: Are version numbers, changelog entries, event dates in logical sequence?
+3. **Reference freshness**: Do "current", "now", "today" claims have date qualifiers?
+
+**Fix:**
+- Verify "Last Updated" matches actual update date
+- Check all dates are in chronological order
+- Add "as of [date]" to time-sensitive claims
+- Use future tense for planned items
+
+**Relationship to Mode 6 (Staleness):**
+- Mode 6 catches claims that WILL become stale (volatility)
+- Mode 7 catches dates that are ALREADY wrong (incoherence)
+
+---
+
+### 8. THE UNVERIFIED SPECIFIC CLAIMS TRAP
+
+**Problem:** Specific numbers (pricing, statistics, rates) included in Verified Data without actually verifying them.
+
+**Why it matters:** Specific numbers look authoritative. "$0.005 per call" in a Source of Truth document will be trusted and propagated — even if it's 10x wrong. These are "confident plausible falsehoods."
+
+| Fails | Passes |
+|-------|--------|
+| "API cost: ~$0.005 per call" (unverified) | "API cost: ~$0.001 per call (Gemini 2.0 Flash pricing, Dec 2025)" |
+| "Papers average 15-30 equations" (guessed) | "Papers contain ~0.5-2 equations per page (PNAS study, varies by field)" |
+| "40% of researchers use X" (no source) | "40% of researchers use X (Smith et al. 2024, n=500)" |
+| "Competitors charge $99/month" (assumed) | "Competitor X charges $99/month (pricing page, Dec 2025) [VOLATILE]" |
+
+**Red flags requiring verification:**
+| Type | Example | Action |
+|------|---------|--------|
+| Pricing | "$X.XX", "~$X per Y" | Check official pricing page |
+| Statistics | "X% of", "averages Y" | Find citation or mark as estimate |
+| Rates/ratios | "X per Y", "X times faster" | Verify methodology or mark as claim |
+| Competitor claims | "No one offers X", "All competitors do Y" | Verify or hedge ("to our knowledge") |
+| Industry facts | "The standard is X" | Cite source or add date qualifier |
+
+**Fix options:**
+1. **Verify and cite**: Add source with date
+2. **Move to Estimates**: If unverifiable, don't put in Verified Data
+3. **Generalize**: "low cost" instead of "$0.005"
+4. **Add uncertainty**: "reportedly ~$0.005 (unverified)"
+
+**Relationship to Mode 6 (Staleness):**
+- Mode 6 marks claims that will decay (pricing marked VOLATILE)
+- Mode 8 catches claims that were never verified in the first place
+
+**Key insight:** A claim can have correct staleness markers AND still be wrong. "$0.005 [VOLATILE]" is properly marked for staleness but may still be factually incorrect.
+
+---
+
 ## Staleness Risk Categories
+
+**Note:** Staleness markers (Mode 6) address FUTURE decay. But claims must also be VERIFIED at creation time (Mode 8). A claim marked [VOLATILE] that was never verified is still wrong.
 
 | Category | Examples | Typical Shelf Life | Marker |
 |----------|----------|-------------------|--------|
@@ -190,6 +258,8 @@ For simple projects, use this lightweight version (~40 lines when filled):
 | Internal claims | Owner verified | High |
 | Measurements | [Formal/Informal] | [High/Medium] |
 | Estimates | Marked as such | N/A |
+| Temporal coherence | Dates verified | High |
+| Specific claims | Verified against sources | High |
 
 **Exceptions:** [Any caveats]
 
@@ -250,6 +320,8 @@ Use the **Full Template** below when you need:
 | Gap claims | Systematic search | Medium | Medium |
 | Estimates | Marked as such | N/A | N/A |
 | Self-assessments | Author judgment | N/A | N/A |
+| Temporal claims | Dates verified against current | High | N/A |
+| Specific numbers (pricing, stats) | Verified against sources | High | Per-claim |
 
 **Last verified:** [date] by [owner]
 **Exceptions:** [Specific caveats if any]
@@ -369,6 +441,11 @@ Run through before finalizing:
 | Estimates in separate section from verified data? | |
 | Volatile claims marked with staleness warnings? | |
 | "Re-verify before use" list for URLs/competitors? | |
+| Document "Last Updated" date is correct? | |
+| All dates in chronological order (versions, events)? | |
+| Specific pricing verified against official sources? | |
+| Statistics have citations (not just plausible guesses)? | |
+| "Current" claims have date qualifiers? | |
 
 ---
 
@@ -410,6 +487,19 @@ Run through before finalizing:
 
 ## Changelog
 
+### v1.1 (2025-12-28)
+- **ADDED:** Mode 7 - Temporal Incoherence Trap
+  - Catches wrong dates at creation (not just future staleness)
+  - Date vs current date validation
+  - Chronological order verification
+- **ADDED:** Mode 8 - Unverified Specific Claims Trap
+  - Catches pricing/statistics included without verification
+  - "Confident plausible falsehoods" prevention
+  - Verification-before-inclusion requirement
+- **UPDATED:** Templates to include temporal and specific claim verification
+- **UPDATED:** Quick Checklist with new verification items
+- **ALIGNMENT:** Matches Clarity Gate v1.5 Points 8-9
+
 ### v1.0 (2025-12-21)
 - Initial release
 - Six failure modes documented
@@ -419,6 +509,6 @@ Run through before finalizing:
 
 ---
 
-**Version:** 1.0  
-**Scope:** Source of Truth document creation  
+**Version:** 1.1
+**Scope:** Source of Truth document creation
 **Output:** Epistemically calibrated Source of Truth document

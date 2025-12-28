@@ -1,7 +1,7 @@
 # Source of Truth Creator — Prior Art
 
-**Version:** 1.0  
-**Last Updated:** 2025-12-21
+**Version:** 1.1
+**Last Updated:** 2025-12-28
 
 ---
 
@@ -211,7 +211,7 @@ Multiple integrated frameworks address similar or greater complexity:
 
 ---
 
-## Mapping Prior Art to Our Six Failure Modes
+## Mapping Prior Art to Our Eight Failure Modes
 
 | Failure Mode | Prior Art Exists? | Source | What We Add |
 |--------------|-------------------|--------|-------------|
@@ -221,6 +221,8 @@ Multiple integrated frameworks address similar or greater complexity:
 | 4. Absence-as-Proof Trap | Yes | PRISMA, Cochrane, OHAT | Enforcement template |
 | 5. Illustrative-as-Data Trap | Partial | Visualization standards, Tsave 2025 | Explicit marking template |
 | 6. Staleness Trap | **Mathematically formalized** | Chayka 2012, DAMA-DMBOK | Simplified markers |
+| 7. Temporal Incoherence Trap | Yes | Data quality standards, version control practices | Documentation enforcement |
+| 8. Unverified Specific Claims Trap | Yes | Fact-checking methodology, citation standards | Pre-inclusion verification |
 
 ---
 
@@ -237,7 +239,7 @@ Multiple integrated frameworks address similar or greater complexity:
 
 **Practical accessibility for documentation teams:**
 
-1. A simple 6-item checklist (vs 9-10 dimension frameworks)
+1. A simple 8-item checklist (vs 9-10 dimension frameworks)
 2. Copy-paste templates (vs academic methodologies)
 3. Markdown format for technical writers
 4. No automation required (vs production pipelines)
@@ -279,4 +281,5 @@ Multiple integrated frameworks address similar or greater complexity:
 
 | Version | Date | Changes |
 |---------|------|--------|
+| 1.1 | 2025-12-28 | Added Modes 7-8 (Temporal Incoherence, Unverified Specific Claims). Aligned with Clarity Gate v1.5. |
 | 1.0 | 2025-12-21 | Initial release. Citations verified against primary sources. |
